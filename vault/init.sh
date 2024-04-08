@@ -67,9 +67,9 @@ if [ $? -gt 0 ]; then
     echo "error: export ca.crt"
     exit 1
 fi
-vault read -format=table -field=certificate pki/cert/crl > /vault/file/crl.crt
+vault read -format=table -field=certificate pki/cert/crl > /vault/file/crl.pem
 if [ $? -gt 0 ]; then
-    echo "error: export crl.crt"
+    echo "error: export crl.pem"
     exit 1
 fi
 

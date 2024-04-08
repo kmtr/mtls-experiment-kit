@@ -53,7 +53,7 @@ curl: (60) SSL certificate problem: self signed certificate
 
 ```sh
 % ./revoke-cert.sh cert.pem
-% # update crl.crt in vault and run `nginx -s reload`
+% # update crl.pem in vault and run `nginx -s reload`
 % ./mtls-request.sh
 404
 ```
