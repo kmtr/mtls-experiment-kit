@@ -38,7 +38,7 @@ Private Key:
 
 Create certificate and key files.
 
-```
+```sh
 % ls *.pem
 ca.pem   cert.pem key.pem
 % bash mtls-request.sh
@@ -46,4 +46,13 @@ Hello, Vault + Nginx mTLS%
 
 % curl https://localhost:8443
 curl: (60) SSL certificate problem: self signed certificate
+```
+
+## Revoke a certification
+
+```sh
+% sh revoke-cert.sh cert.pem
+% # update crl.crt in vault and run `nginx -s reload`
+% bash mtls-request.sh
+404
 ```

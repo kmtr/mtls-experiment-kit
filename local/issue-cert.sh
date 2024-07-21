@@ -23,3 +23,6 @@ echo $RESPONSE | jq -r .data.issuing_ca
 echo
 echo "Private Key:"
 echo $RESPONSE | jq -r .data.private_key
+echo
+echo "Serial Number:"
+echo $RESPONSE | jq -r .data.serial_number
