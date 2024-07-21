@@ -1,0 +1,4 @@
+tmp/
+*.pem
+!local-server.crt
+!local-server.key
