@@ -7,7 +7,7 @@ Don't use for production.
 
 ```sh
 % docker compose up --build
-% docker compose exec -it nginx bash
+% docker compose exec -it nginx sh
 % docker compose exec -it vault sh
 ```
 
@@ -15,9 +15,9 @@ Don't use for production.
 
 ```sh
 % cd local
-% export VAULT_TOKEN=$(bash token.sh)
-% CLIENT_ROLE_NAME=client_a bash create-client-role.sh # create a client
-% CLIENT_ROLE_NAME=client_a bash issue-cert.sh
+% export VAULT_TOKEN=$(sh token.sh)
+% CLIENT_ROLE_NAME=client_a sh create-client-role.sh # create a client
+% CLIENT_ROLE_NAME=client_a sh issue-cert.sh
 Certificate:
 -----BEGIN CERTIFICATE-----
 ...
@@ -41,7 +41,7 @@ Create certificate and key files.
 ```sh
 % ls *.pem
 ca.pem   cert.pem key.pem
-% bash mtls-request.sh
+% sh mtls-request.sh
 Hello, Vault + Nginx mTLS%
 
 % curl https://localhost:8443
@@ -53,6 +53,6 @@ curl: (60) SSL certificate problem: self signed certificate
 ```sh
 % sh revoke-cert.sh cert.pem
 % # update crl.crt in vault and run `nginx -s reload`
-% bash mtls-request.sh
+% sh mtls-request.sh
 404
 ```
