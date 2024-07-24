@@ -1,4 +1,8 @@
-vault write --format=json pki/issue/client_x \
+if [ -z "$CLIENT_ROLE_NAME" ]; then
+    echo "required: export CLIENT_ROLE_NAME"
+    exit 1
+fi
+vault write --format=json pki/issue/"$CLIENT_ROLE_NAME" \
     common_name="clientA.example.com" \
     ttl="1h"
 

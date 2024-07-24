@@ -1,8 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
 VAULT_ADDR="http://127.0.0.1:8200"
-CLIENT_ORGANIZATION="client org"
-MAX_TTL="72h"
 
 if [ -z "$VAULT_TOKEN" ]; then
     echo "required: export VAULT_TOKEN"
@@ -12,6 +10,10 @@ if [ -z "$CLIENT_ROLE_NAME" ]; then
     echo "required: export CLIENT_ROLE_NAME"
     exit 1
 fi
+if [ -z "$CLIENT_ORGANIZATION"]; then
+    CLIENT_ORGANIZATION="client org"
+fi
+MAX_TTL="72h"
 
 
 # クライアントロールの作成
