@@ -17,7 +17,7 @@ Don't use for production.
 % cd local
 % export VAULT_TOKEN=$(sh token.sh)
 % CLIENT_ROLE_NAME=client_a sh create-client-role.sh # create a client
-% CLIENT_ROLE_NAME=client_a sh issue-cert.sh
+% CLIENT_ROLE_NAME=client_a bash issue-cert.sh
 Certificate:
 -----BEGIN CERTIFICATE-----
 ...
