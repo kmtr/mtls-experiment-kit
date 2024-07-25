@@ -1,0 +1,1 @@
+curl localhost:8080/local-server.crt > local-server.crt
