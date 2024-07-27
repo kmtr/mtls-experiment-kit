@@ -1,11 +1,5 @@
 #!/usr/bin/env sh
 
-VAULT_ADDR="http://127.0.0.1:8200"
-
-if [ -z "$VAULT_TOKEN" ]; then
-    echo "required: export VAULT_TOKEN" 1>&2
-    exit 1
-fi
 if [ -z "$CLIENT_ROLE_NAME" ]; then
     echo "required: export CLIENT_ROLE_NAME" 1>&2
     exit 1

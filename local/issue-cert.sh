@@ -1,18 +1,18 @@
 #!/usr/bin/env sh
-VAULT_ADDR="http://127.0.0.1:8200"
-COMMON_NAME="server.example.com"
-TTL="24h"
-
-if [ -z "$VAULT_TOKEN" ]; then
-    echo "required: export VAULT_TOKEN" 1>&2
-    exit 1
-fi
 if [ -z "$CLIENT_ROLE_NAME" ]; then
     echo "required: export CLIENT_ROLE_NAME" 1>&2
     exit 1
 fi
+if [ -z "$COMMON_NAME" ]; then
+    COMMON_NAME="$CLIENT_ROLE_NAME".localhost
+fi
+TTL="24h"
 
-RESPONSE=$(curl --silent --header "X-Vault-Token: $VAULT_TOKEN" --request POST --data '{"common_name": "'"$COMMON_NAME"'", "ttl": "'"$TTL"'"}' "$VAULT_ADDR/v1/pki/issue/$CLIENT_ROLE_NAME")
+RESPONSE=$(curl --silent \
+    --header "X-Vault-Token: $VAULT_TOKEN" \
+    --request POST \
+    --data '{"common_name": "'"$COMMON_NAME"'", "ttl": "'"$TTL"'"}' \
+    "$VAULT_ADDR/v1/pki/issue/$CLIENT_ROLE_NAME")
 
 echo "Issuing CA:"
 printf "%s" "$RESPONSE" | jq -r .data.issuing_ca

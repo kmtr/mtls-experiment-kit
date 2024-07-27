@@ -15,7 +15,8 @@ Don't use for production.
 
 ```sh
 % cd local
-% export VAULT_TOKEN=$(./token.sh)
+% source env-local
+% export VAULT_TOKEN=$(./get-vault-issuer-token.sh)
 % CLIENT_ROLE_NAME=client_a ./create-client-role.sh # create a client
 % CLIENT_ROLE_NAME=client_a ./issue-cert.sh # issue a cert
 Certificate:
