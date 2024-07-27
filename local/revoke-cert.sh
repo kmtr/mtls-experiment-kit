@@ -1,6 +1,7 @@
+#!/usr/bin/env sh
 VAULT_ADDR="http://127.0.0.1:8200"
 if [ -z "$VAULT_TOKEN" ]; then
-    echo "required: export VAULT_TOKEN"
+    echo "required: export VAULT_TOKEN" 1>&2
     exit 1
 fi
 SERIAL=$(bash get-serial-number-from-cert.sh "$1")

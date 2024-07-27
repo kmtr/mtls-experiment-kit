@@ -1,16 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 VAULT_ADDR="http://127.0.0.1:8200"
 
 if [ -z "$VAULT_TOKEN" ]; then
-    echo "required: export VAULT_TOKEN"
+    echo "required: export VAULT_TOKEN" 1>&2
     exit 1
 fi
 if [ -z "$CLIENT_ROLE_NAME" ]; then
-    echo "required: export CLIENT_ROLE_NAME"
+    echo "required: export CLIENT_ROLE_NAME" 1>&2
     exit 1
 fi
-if [ -z "$CLIENT_ORGANIZATION"]; then
+if [ -z "$CLIENT_ORGANIZATION" ]; then
     CLIENT_ORGANIZATION="client org"
 fi
 MAX_TTL="72h"
@@ -29,5 +29,5 @@ curl --header "X-Vault-Token: $VAULT_TOKEN" \
        "organization": "'"$CLIENT_ORGANIZATION"'",
        "generate_lease": true
      }' \
-     $VAULT_ADDR/v1/pki/roles/$CLIENT_ROLE_NAME
+     "$VAULT_ADDR/v1/pki/roles/$CLIENT_ROLE_NAME"
 

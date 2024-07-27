@@ -15,9 +15,9 @@ Don't use for production.
 
 ```sh
 % cd local
-% export VAULT_TOKEN=$(sh token.sh)
-% CLIENT_ROLE_NAME=client_a sh create-client-role.sh # create a client
-% CLIENT_ROLE_NAME=client_a bash issue-cert.sh
+% export VAULT_TOKEN=$(./token.sh)
+% CLIENT_ROLE_NAME=client_a ./create-client-role.sh # create a client
+% CLIENT_ROLE_NAME=client_a ./issue-cert.sh # issue a cert
 Certificate:
 -----BEGIN CERTIFICATE-----
 ...
@@ -41,7 +41,7 @@ Create certificate and key files.
 ```sh
 % ls *.pem
 ca.pem   cert.pem key.pem
-% sh mtls-request.sh
+% ./mtls-request.sh
 Hello, Vault + Nginx mTLS%
 
 % curl https://localhost:8443
@@ -51,8 +51,8 @@ curl: (60) SSL certificate problem: self signed certificate
 ## Revoke a certification
 
 ```sh
-% sh revoke-cert.sh cert.pem
+% ./revoke-cert.sh cert.pem
 % # update crl.crt in vault and run `nginx -s reload`
-% sh mtls-request.sh
+% ./mtls-request.sh
 404
 ```

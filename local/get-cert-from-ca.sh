@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 if [ -z "$SERIAL" ]; then
-    echo "required: export SERIAL"
+    echo "required: SERIAL" 1>&2
+    echo "usage: SERIAL=\$(./get-serial-number-from-cert.sh cert.pem) ./get-cert-from-ca.sh" 1>&2
     exit 1
 fi
 RESPONSE=$(curl -s http://127.0.0.1:8200/v1/pki/cert/"$SERIAL")
