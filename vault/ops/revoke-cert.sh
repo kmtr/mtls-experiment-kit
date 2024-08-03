@@ -1,9 +1,8 @@
-# get the serial number
-openssl x509 -in cert.pem -noout -serial | sed 's/serial=//; s/../&:/g; s/:$//'
-
-# check the cert
-vault read pki/cert/{serial number}
+if [ -z "$SERIAL" ]; then
+    echo "usage: SERIAL={serial_number} ./revoke-cert.sh"
+    exit 1
+fi
 
 # revoke
-vault write pki/revoke serial_number={serial number}
+vault write pki/revoke serial_number="$SERIAL"
 vault list /pki/certs/revoked

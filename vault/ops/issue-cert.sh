@@ -1,10 +1,13 @@
 if [ -z "$CLIENT_ROLE_NAME" ]; then
-    echo "required: export CLIENT_ROLE_NAME"
+    echo "usage: CLIENT_ROLE_NAME={client-role-name}" ./issue-cert.sh
     exit 1
 fi
-vault write --format=json pki/issue/"$CLIENT_ROLE_NAME" \
-    common_name="clientA.example.com" \
-    ttl="1h"
-
-vault read --format=table --field certificate pki/cert/{serial number}
-vault read --format=json pki/cert/{serial number}
+if [ -z "$COMMON_NAME" ]; then
+    COMMON_NAME="$CLIENT_ROLE_NAME"
+fi
+if [ -z "$TTL" ]; then
+    TTL="1h"
+fi
+vault write --format=table pki/issue/"$CLIENT_ROLE_NAME" \
+    common_name="$COMMON_NAME" \
+    ttl="$TTL"
