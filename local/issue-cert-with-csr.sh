@@ -28,13 +28,13 @@ cat <<EOF > csr_payload.json
 {
   "csr": "$CSR_CONTENT",
   "format": "pem_bundle",
-  "ttl": "43800h"
+  "ttl": "$TTL"
 }
 EOF
 
 # Submit CSR to Vault and get the signed certificate
 response=$(curl --silent --request POST \
-     --url $VAULT_ADDR/v1/pki/sign/$CLIENT_ROLE_NAME \
+     --url "$VAULT_ADDR/v1/pki/sign/$CLIENT_ROLE_NAME" \
      --header 'Content-Type: application/json' \
      --header "X-Vault-Token: $VAULT_TOKEN" \
      --data @csr_payload.json
@@ -42,7 +42,7 @@ response=$(curl --silent --request POST \
 rm csr_payload.json
 
 # Extract signed certificate
-signed_cert=$(echo $response | jq -r '.data.certificate')
+signed_cert=$(echo "$response" | jq -r '.data.certificate')
 
 # Save signed certificate to file
 echo "$signed_cert" > $SIGNED_CERT_FILE

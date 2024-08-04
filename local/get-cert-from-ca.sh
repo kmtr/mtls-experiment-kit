@@ -4,7 +4,7 @@ if [ -z "$SERIAL" ]; then
     echo "usage: SERIAL=\$(./get-serial-number-from-cert.sh cert.pem) ./get-cert-from-ca.sh" 1>&2
     exit 1
 fi
-RESPONSE=$(curl -s $VAULT_ADDR/v1/pki/cert/"$SERIAL")
+RESPONSE=$(curl -s "$VAULT_ADDR/v1/pki/cert/$SERIAL")
 
 REVOCATION_TIME=$(printf "%s" "$RESPONSE" | jq -r .data.revocation_time_rfc3339)
 if [ -z "$REVOCATION_TIME" ]; then
