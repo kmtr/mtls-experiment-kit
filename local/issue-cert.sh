@@ -7,6 +7,9 @@ if [ -z "$COMMON_NAME" ]; then
     COMMON_NAME="$CLIENT_ROLE_NAME".localhost
 fi
 TTL="24h"
+CLIENT_CA_FILE=client-ca.pem
+CLIENT_CERT_FILE=cert.pem
+CLIENT_KEY_FILE=key.pem
 
 RESPONSE=$(curl --silent \
     --header "X-Vault-Token: $VAULT_TOKEN" \
@@ -14,14 +17,14 @@ RESPONSE=$(curl --silent \
     --data '{"common_name": "'"$COMMON_NAME"'", "ttl": "'"$TTL"'"}' \
     "$VAULT_ADDR/v1/pki/issue/$CLIENT_ROLE_NAME")
 
-echo "Issuing CA:"
-printf "%s" "$RESPONSE" | jq -r .data.issuing_ca
-echo
-echo "Certificate:"
-printf "%s" "$RESPONSE" | jq -r .data.certificate
-echo
-echo "Private Key:"
-printf "%s" "$RESPONSE" | jq -r .data.private_key
-echo
-echo "Serial Number:"
+printf "Issuing CA:\n"
+printf "%s" "$RESPONSE" | jq -r .data.issuing_ca | tee "$CLIENT_CA_FILE"
+printf "exported to %s\n\n" "$CLIENT_CA_FILE"
+printf "Certificate:\n"
+printf "%s" "$RESPONSE" | jq -r .data.certificate | tee "$CLIENT_CERT_FILE"
+printf "exported to %s\n\n" "$CLIENT_CERT_FILE"
+printf "Private Key:\n"
+printf "%s" "$RESPONSE" | jq -r .data.private_key | tee "$CLIENT_KEY_FILE"
+printf "exported to %s\n\n" "$CLIENT_KEY_FILE"
+printf "Serial Number:\n"
 printf "%s" "$RESPONSE" | jq -r .data.serial_number
