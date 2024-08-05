@@ -1,8 +1,10 @@
+#!/bin/sh
+
 if [ -z "$CLIENT_ROLE_NAME" ]; then
     echo "required: export CLIENT_ROLE_NAME"
     exit 1
 fi
-if [ -z "$CLIENT_ORGANIZATION"]; then
+if [ -z "$CLIENT_ORGANIZATION" ]; then
     CLIENT_ORGANIZATION="client org"
 fi
 MAX_TTL="72h"

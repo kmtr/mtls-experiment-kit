@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ -z "$CLIENT_ROLE_NAME" ]; then
     echo "usage: CLIENT_ROLE_NAME={client-role-name}" ./issue-cert.sh
     exit 1

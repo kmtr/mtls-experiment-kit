@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ -z "$SERIAL" ]; then
     echo "usage: SERIAL={serial_number} ./revoke-cert.sh"
     exit 1

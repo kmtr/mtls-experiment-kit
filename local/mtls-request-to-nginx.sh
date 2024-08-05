@@ -6,7 +6,7 @@ NGINX_URL=https://localhost:8443
 SERVER_CERT="local-server-nginx.pem"
 docker compose exec nginx openssl x509 -in /etc/nginx/ssl/local-server.crt > "$SERVER_CERT"
 
-curl -vvvv --cert cert.pem \
+curl --cert cert.pem \
     --key key.pem \
     --cacert "$SERVER_CERT" \
     "$NGINX_URL"
