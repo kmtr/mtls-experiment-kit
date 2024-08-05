@@ -9,9 +9,9 @@ services:
     volumes:
       - shared-data:/etc/envoy/vault:ro
     ports:
-      - "9901:9901"
-      - "8081:8081"
-      - "8481:8481"
+      - "127.0.0.1:9901:9901"
+      - "127.0.0.1:8081:8081"
+      - "127.0.0.1:8481:8481"
     depends_on:
       nginx:
         condition: service_started
