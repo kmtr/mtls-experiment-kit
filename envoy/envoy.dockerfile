@@ -1,6 +1,8 @@
 FROM envoyproxy/envoy:v1.31-latest
 
 COPY envoy.yaml /etc/envoy/envoy.yaml
+COPY tls_certificate_sds_secret.yaml /etc/envoy/tls_certificate_sds_secret.yaml
+COPY validation_context_sds_secret.yaml /etc/envoy/validation_context_sds_secret.yaml
 
 RUN mkdir -p /etc/envoy/server && \
     openssl ecparam -name prime256v1 -out /tmp/prime256v1.pem && \

@@ -1,7 +1,13 @@
 admin:
-    access_log_path: "/dev/null"
+    access_log:
+    - name: envoy.access_loggers.stdout
+      typed_config:
+        "@type": type.googleapis.com/envoy.extensions.access_loggers.stream.v3.StdoutAccessLog
     address:
       socket_address: { address: 0.0.0.0, port_value: 9901 }
+node:
+  id: test
+  cluster: test
 static_resources:
   listeners:
   - name: listener_0
@@ -36,19 +42,19 @@ static_resources:
           "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
           require_client_certificate: true
           common_tls_context:
+            tls_certificate_sds_secret_configs:
+              name: tls_sds
+              sds_config:
+                path_config_source:
+                  path: /etc/envoy/tls_certificate_sds_secret.yaml
+            validation_context_sds_secret_config:
+              name: validation_context_sds
+              sds_config:
+                path_config_source:
+                  path: /etc/envoy/validation_context_sds_secret.yaml
             tls_params:
               tls_minimum_protocol_version: TLSv1_3
               tls_maximum_protocol_version: TLSv1_3
-            tls_certificates:
-            - certificate_chain:
-                filename: /etc/envoy/server/local-server.crt
-              private_key:
-                filename: /etc/envoy/server/local-server.key
-            validation_context:
-              trusted_ca:
-                filename: /etc/envoy/vault/ca.crt
-              crl:
-                filename: /etc/envoy/vault/crl.pem
   - name: listener_1
     address:
       socket_address:
